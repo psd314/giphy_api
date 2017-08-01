@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Giphy API</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+		<script
+		src="https://code.jquery.com/jquery-3.2.1.min.js"
+		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		crossorigin="anonymous">
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			
+			<div id="left-col">
+			<h1>Giphy Top 10</h1><br>
+				<div id="display"></div>
+			</div>
+			<div id='right-col'>
+				<div id="searchTerm">
+					<form>
+						Add a new search term:<br>
+						<input id="userInput" type="text">
+						<button type="button" id="addBtn">Add</button><br>
+						<input id='ratedY' type="radio" name="rating" value="y">
+						<label for="ratedY"><span><span></span></span>Y</label>
+						<input id='ratedG' type="radio" name="rating" value="g">
+						<label for="ratedG"><span><span></span></span>G</label>
+						<input id='ratedPG' type="radio" name="rating" value="pg">
+						<label for="ratedPG"><span><span></span></span>PG</label>
+						<input id='ratedPG13' type="radio" name="rating" value="pg13">
+						<label for="ratedPG13"><span><span></span></span>PG-13</label>
+						<input id='ratedR' type="radio" name="rating" value="r" checked>
+						<label for="ratedR"><span><span></span></span>R</label>
+					</form>
+				</div>
+				<div id="buttons"></div>
+			</div>
+			
+		</div>
+		<script src="assets/javascript/app2.js"></script>
+	</body>
+</html>
