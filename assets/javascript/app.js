@@ -1,9 +1,9 @@
 var userInput;
 var query;
 var queryUrl;
-var srcObj = [];
-var currentUrl;
 var enterKey;
+var rating = "&rating=r";
+var button;
 
 var topics = [
 		"honey badger",
@@ -23,30 +23,47 @@ function renderButtons() {
 $(document).ready(function() {
 	renderButtons();
 
-	//disable 'Enter' key from submitting form
-	$('input').on('keydown', function(event) {
-   		enterKey = event.which;
-   		if (enterKey === 13) {
-	    	event.preventDefault();
-	   	}
-	});
-
-	$('#addBtn').on("click", function(){
-		if($.inArray($('#userInput').val().toLowerCase(), topics) === -1 ){
+	// add new button
+	$('#addBtn').on("click", function(e){
+		e.preventDefault();
+		if ($('#userInput').val().toLowerCase() === ""){
+			alert("Please enter a search term");
+		} else if ($.inArray($('#userInput').val().toLowerCase(), topics) === -1 ){
 			userInput = $('#userInput').val().toLowerCase();
 			topics.push(userInput);
 			renderButtons();
 		} else {
-			alert("This button already exists")
+			alert("This button already exists");
 		}
-		$('#userInput').val("");
+		$('#userInput').val("");	
+	});
+
+	//adjust rating for queryUrl
+	$("input[type='radio']").change(function(){
+
+		switch($(this).attr("value")) {
+			case "y":
+				rating = "&rating=y";
+				break;
+			case "g":
+				rating = "&rating=g";
+				break;
+			case "pg":
+				rating = "&rating=pg";
+				break;
+			case "pg13":
+				rating = "&rating=pg13";
+				break;
+			case "r":
+				rating = "&rating=r";
+		}
 	});
 	
 
 	$('body').on("click", ".search", function(){
 		query = $(this).text();
 		queryUrl = "https://api.giphy.com/v1/gifs/search?q=";
-		queryUrl += query;
+		queryUrl += query + rating;
 		queryUrl += "&api_key=dff168cd8b1142919db6c3b0027da1e1&limit=10";
 
 		$.ajax({
@@ -54,37 +71,44 @@ $(document).ready(function() {
 	      method: 'GET'
 	    }).done(function(response) {
 	    	$('#display').empty();
-	    	srcObj = [];
+	    	console.log(response);
 	    	for(var i = 0; i < response.data.length; i++){
 	    		// build html to display gif
 	    		// var blah = generate image w/ jquery
 	    		//
 	    		var gifHtml = "<figure class='gif'><img  src='" ;
 	    		gifHtml += response.data[i].images.fixed_height_still.url;
-	    		gifHtml += "'/><figcaption><strong>Rating - " + response.data[i].rating.toUpperCase();
+	    		gifHtml += "' data-state=\'still\' data-still=\'" + response.data[i].images.fixed_height_still.url + "' ";
+	    		gifHtml += " data-animate='";
+	    		gifHtml += response.data[i].images.fixed_height.url + "'/>";
+	    		gifHtml += "<figcaption><strong>Rating - " + response.data[i].rating.toUpperCase();
 	    		gifHtml += "</strong></figcaption></figure>";
-
 	      		$('#display').append(gifHtml);
-	      		// store still and gif in own object, put in srcObj[]
-	    		srcObj.push(
-	    			{
-	    			"still" : response.data[i].images.fixed_height_still.url,
-	    			"gif" : response.data[i].images.fixed_height.url
-	    			}
-	    		);
+	      		console.log(gifHtml);
 	    	}
-	    	console.log(response);	
-	    });
-	});
 
-	$('body').on("click", "img", function(){
-		// compare index of parent to index in srcObj[] to toggle
-		// still and gif on click
-		if ( $(this).attr("src") === srcObj[$(this).parent().index()].still)
-		{ 
-			$(this).attr("src", srcObj[$(this).parent().index()].gif);
-		} else {
-			$(this).attr("src", srcObj[$(this).parent().index()].still);
-		}	
+	    	// original assignment functionality
+	  //   	$('img').on("click", function(){
+			// 	// compare index of parent to index in srcObj[] to toggle
+			// 	// still and gif on click
+			// 	if ( $(this).attr("data-state") === 'still')
+			// 	{ 
+			// 		$(this).attr("src", $(this).attr("data-animate"))
+			// 			.attr("data-state", "animate");
+			// 	} else {
+			// 		$(this).attr("src", $(this).attr("data-still"))
+			// 			.attr("data-state", "still");					
+			// 	}	
+			// });
+
+			// Evan's hover bonus
+			$( "img" ).hover(
+		      function() {
+		        $(this).attr('src', $(this).attr('data-animate'));
+		      }, function() {
+		        $(this).attr('src', $(this).attr('data-still'));
+		      }
+		    );	    	
+	    });
 	});
 });
