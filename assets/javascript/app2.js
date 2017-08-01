@@ -23,16 +23,9 @@ function renderButtons() {
 $(document).ready(function() {
 	renderButtons();
 
-	//disable 'Enter' key from submitting form
-	$('input').on('keydown', function(event) {
-   		enterKey = event.which;
-   		if (enterKey === 13) {
-	    	event.preventDefault();
-	   	}
-	});
 	// add new button
-	$('#addBtn').on("click", function(){
-
+	$('#addBtn').on("click", function(e){
+		e.preventDefault();
 		if ($('#userInput').val().toLowerCase() === ""){
 			alert("Please enter a search term");
 		} else if ($.inArray($('#userInput').val().toLowerCase(), topics) === -1 ){

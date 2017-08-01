@@ -14,11 +14,17 @@ figure {
 	width: 50%;
 	margin-left: 0;
 	margin-right: 0;
+	text-align: center;
+}
+
+figcaption {
+	padding-bottom: 5px;
 }
 
 h1 {
 	margin: auto;
 }
+
 
 input[type=radio   ]:not(old){
   width     : 2em;
@@ -73,6 +79,22 @@ input[type=radio]:not(old):checked + label > span > span{
   background-image :         linear-gradient(rgb(179,217,140),rgb(153,204,102));
 }
 
+.container {
+	max-width: 80%;
+	margin: 20px auto;
+}
+
+.search {
+	margin: 2.5px 5px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	background: forestgreen;
+	font-family: "Indie Flower";
+	font-size: 1.25rem;
+}
+
 #buttons {
 	display: inline-flex;
 	flex-wrap: wrap;
@@ -111,11 +133,6 @@ input[type=radio]:not(old):checked + label > span > span{
 	overflow: hidden;
 }
 
-.container {
-	max-width: 80%;
-	margin: 20px auto 0;
-}
-
 #addBtn {
 	border: none;
 	border-radius: 5px;
@@ -124,18 +141,7 @@ input[type=radio]:not(old):checked + label > span > span{
 	font-family: "Indie Flower";
 	font-size: 1.25rem;
 }
-.search {
-	margin: 2.5px 5px;
-	padding: 5px;
-	border: none;
-	border-radius: 5px;
-	color: white;
-	background: forestgreen;
-	font-family: "Indie Flower";
-	font-size: 1.25rem;
-}
 
-.check {
-	margin-left: 20px;
-}
+
+
 
